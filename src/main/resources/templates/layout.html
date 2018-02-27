@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <title>ツアー予約システム</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/stylesheets/style.css}" />
+</head>
+<body>
+    <div class="container">
+        <div th:replace="layout/header::header" />
+        <div layout:fragment="content" />
+    </div><!-- /.container -->
+    <div th:replace="layout/footer::footer" />
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <div th:fragment="top">
+        <div sec:authorize="!hasRole('ROLE_USER')" th:text="#{label.tr.common.notLoginMessage}"
+             class="alert alert-info" role="alert" />
+        <div sec:authorize="hasRole('ROLE_USER')">
+            <form th:action="@{/logout}">
+                <button class="btn btn-default" th:text="#{label.tr.common.logout}" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

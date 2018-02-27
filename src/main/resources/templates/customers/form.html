@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:replace="common/top::top" />
+    <h2 th:text="#{label.tr.managecustomer.managecustomerMessage}" />
+    <div class="panel panel-info">
+        <div th:utext="#{label.tr.managecustomer.createFormMessage}"/>
+    </div>
+    <form class="form-horizontal" th:action="@{/customers/create}" th:object="${customerForm}" method="post">
+        <ul th:if="${#fields.hasAnyErrors()}">
+            <li th:each="e : ${#fields.detailedErrors()}" th:text="${e}" />
+        </ul>
+        <div class="form-group">
+            <label for="customerKana" class="col-sm-2 control-label"
+                   th:text="${#messages.msg('label.tr.common.kana') + '(' + #messages.msg('label.tr.common.required') + ')'}" />
+            <div class="col-sm-10">
+                <input type="text" id="customerKana" name="customerKana" th:field="*{customerKana}" th:errorclass="fieldError" />
+                (<span th:text="#{label.tr.managecustomer.fullKanaOnlyMessage}" />)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customerName" class="col-sm-2 control-label"
+                    th:text="${#messages.msg('label.tr.common.name') + '(' + #messages.msg('label.tr.common.required') + ')'}" />
+            <div class="col-sm-10">
+                <input type="text" id="customerName" name="customerName" th:field="*{customerName}" th:errorclass="fieldError" />
+                (<span th:text="#{label.tr.managecustomer.fullOnlyMessage}" />)
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customerBirthYear" class="col-sm-2 control-label"
+                th:text="${#messages.msg('label.tr.common.birthday') + '(' + #messages.msg('label.tr.common.required') + ')'}" />
+            <div class="col-sm-10">
+                <select id="customerBirthYear" name="customerBirthYear" th:field="*{customerBirthYear}" th:errorclass="fieldError">
+                    <option th:each="m : ${CL_BIRTH_YEAR}" th:value="${m.value}" th:text="${m.key}"></option>
+                </select>
+                <span th:text="#{label.tr.common.year}" />
+                <select name="customerBirthMonth" th:field="*{customerBirthMonth}" th:errorclass="fieldError">
+                    <option th:each="m : ${CL_MONTH}" th:value="${m.value}" th:text="${m.key}"></option>
+                </select>
+                <span th:text="#{label.tr.common.month}" />
+                <select name="customerBirthDay" th:field="*{customerBirthDay}" th:errorclass="fieldError">
+                    <option th:each="m : ${CL_DAY}" th:value="${m.value}" th:text="${m.key}"></option>
+                </select>
+                <span th:text="#{label.tr.common.day}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customerJob" class="col-sm-2 control-label"
+                   th:text="${#messages.msg('label.tr.common.job') + '(' + #messages.msg('label.tr.common.required') + ')'}" />
+            <div class="col-sm-10">
+                <input type="text" id="customerJob" name="customerJob" th:field="*{customerJob}" th:errorclass="fieldError" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customerMail" class="col-sm-2 control-label" th:text="#{label.tr.common.email}" />
+            <div class="col-sm-10">
+                <input type="text" id="customerMail" name="customerMail" th:field="*{customerMail}" th:errorclass="fieldError" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customerTel" class="col-sm-2 control-label"
+                   th:text="${#messages.msg('label.tr.common.tel') + '(' + #messages.msg('label.tr.common.required') + ')'}" />
+            <div class="col-sm-10">
+                <input type="text" id="customerTel" name="customerTel" th:field="*{customerTel}" th:errorclass="fieldError" />
+                <span th:text="#{label.tr.managecustomer.halfTelOnlyMessage}" />
+                <span th:text="#{label.tr.managecustomer.telExampleMessage}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customerPost" class="col-sm-2 control-label"
+                   th:text="${#messages.msg('label.tr.common.zip') + '(' + #messages.msg('label.tr.common.required') + ')'}" />
+            <div class="col-sm-10">
+                <input type="text" id="customerPost" name="customerPost" th:field="*{customerPost}" th:errorclass="fieldError" />
+                <span th:text="#{label.tr.managecustomer.halfPasswordOnlyMessage}" />
+                <span th:text="#{label.tr.managecustomer.zipExampleMessage}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customerAdd" class="col-sm-2 control-label"
+                   th:text="${#messages.msg('label.tr.common.address') + '(' + #messages.msg('label.tr.common.required') + ')'}" />
+            <div class="col-sm-10">
+                <input type="text" id="customerAdd" name="customerAdd" th:field="*{customerAdd}" th:errorclass="fieldError" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customerPass" class="col-sm-2 control-label"
+                   th:text="${#messages.msg('label.tr.common.password') + '(' + #messages.msg('label.tr.common.required') + ')'}" />
+            <div class="col-sm-10">
+                <input type="password" id="customerPass" name="customerPass" th:field="*{customerPass}" th:errorclass="fieldError" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="customerPassConfirm" class="col-sm-2 control-label"
+                   th:text="${#messages.msg('label.tr.common.passwordConfirm') + '(' + #messages.msg('label.tr.common.required') + ')'}" />
+            <div class="col-sm-10">
+                <input type="password" id="customerPassConfirm" name="customerPassConfirm" th:field="*{customerPassConfirm}" th:errorclass="fieldError" /><br/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" name="confirm" th:text="#{label.tr.common.confirm}" />
+                <button class="btn btn-default" type="reset" th:text="#{label.tr.common.reset}" />
+            </div>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

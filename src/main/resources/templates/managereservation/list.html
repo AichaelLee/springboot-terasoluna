@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div th:include="common/top::top" />
+
+    <h1 th:text="#{label.tr.managereservation.manageReservationMessage}" />
+    <div class="panel panel-info">
+        <span th:utext="#{label.tr.managereservation.manageReservationFlowMessage}" />
+    </div>
+    <table class="table table-striped">
+        <caption>
+            <span th:utext="#{label.tr.managereservation.ReserveListMessage}"/>
+        </caption>
+        <tr>
+            <th th:text="#{label.tr.managereservation.reserveNo}" />
+            <th th:text="#{label.tr.managereservation.tourName}" />
+            <th th:text="#{label.tr.managereservation.depDay}" />
+            <th th:text="#{label.tr.managereservation.days}" />
+            <th th:text="#{label.tr.managereservation.origin}" />
+            <th th:text="#{label.tr.managereservation.destination}" />
+            <th th:text="#{label.tr.managereservation.noOfPerson}" />
+            <th th:text="#{label.tr.managereservation.paymentStatus}" />
+            <th th:text="#{label.tr.managereservation.totalCost}" />
+            <th></th>
+        </tr>
+        <tr th:each="row : ${rows}" th:object="${row.reserve}">
+            <td th:text="*{reserveNo}"/>
+            <td th:text="*{tourinfo.tourName}"/>
+            <td th:text="*{#dates.format(tourinfo.depDay, #messages.msg('label.tr.common.datePattern'))}" />
+            <td th:text="*{tourinfo.tourDays}"/>
+            <td th:text="*{tourinfo.departure.depName}"/>
+            <td th:text="*{tourinfo.arrival.arrName}"/>
+            <td>
+                <div>
+                    <span th:text="#{label.tr.common.adult}" />
+                    <span th:text="*{adultCount + '人'}"/>
+                </div>
+                <div>
+                    <span th:text="#{label.tr.common.child}" />
+                    <span th:text="*{childCount + '人'}" />
+                </div>
+            </td>
+            <td>
+                <span th:text="*{transfer} == '0' ?
+                  #{label.tr.managereservation.paymentNotDone} :
+                  #{label.tr.managereservation.done}" />
+            </td>
+            <td th:text="${#numbers.formatInteger(row.reserve.sumPrice, 3, 'COMMA') + '円'}"></td>
+            <td>
+                <form th:action="@{'/reservations/' + *{reserveNo}}" method="get">
+                    <button class="btn btn-default" th:text="#{label.tr.managereservation.showDetailsBtnMessage}" />
+                </form>
+                <div th:if="!${row.limitExceeding} and *{transfer} == '0'">
+                    <form th:action="@{'/reservations/' + *{reserveNo} + '/update'}" method="get">
+                        <button name="form" class="btn btn-default"
+                                th:text="#{label.tr.managereservation.changeReservationBtnMessage}" />
+                    </form>
+                    <form th:action="@{'/reservations/' + *{reserveNo} + '/cancel'}" method="get">
+                        <button class="btn btn-default" th:text="#{label.tr.managereservation.cancelReservationBtnMessage}" />
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

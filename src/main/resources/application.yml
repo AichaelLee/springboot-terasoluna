@@ -1,0 +1,24 @@
+logging.level:
+  garbagetown: DEBUG
+  org.terasoluna: DEBUG
+  jdbc: OFF
+  jdbc.sqltiming: DEBUG
+  jdbc.resultsettable: DEBUG
+
+spring:
+  datasource:
+    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:h2:file:~/tmp/tourreservation;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  jpa:
+    hibernate.ddl-auto: validate
+  thymeleaf.cache: false
+  messages.basename: i18n/application-messages
+
+security.basic.enabled: false
+
+customer:
+  initialBirthYear: 1980
+  initialBirthMonth: 1
+  initialBirthDay: 1

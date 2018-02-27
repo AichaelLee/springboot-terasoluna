@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="panel panel-info">
+        <div th:utext="#{label.tr.managecustomer.createConfirmMessage}"/>
+    </div>
+    <form th:action="@{/customers/create}" th:object="${customerForm}" method="post">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <td th:text="#{label.tr.common.kana}" />
+                <td th:text="*{customerKana}" />
+            </tr>
+            <tr>
+                <td th:text="#{label.tr.common.name}" />
+                <td th:text="*{customerName}" />
+            </tr>
+            <tr>
+                <td th:text="#{label.tr.common.birthday}" />
+                <td>
+                    <span th:text="*{customerBirthYear}" th:remove="tag" />年
+                    <span th:text="*{customerBirthMonth}" th:remove="tag" />月
+                    <span th:text="*{customerBirthDay}" th:remove="tag" />日
+                </td>
+            </tr>
+            <tr>
+                <td th:text="#{label.tr.common.job}" />
+                <td th:text="*{customerJob}" />
+            </tr>
+            <tr>
+                <td th:text="#{label.tr.common.email}" />
+                <td th:text="*{customerMail}" />
+            </tr>
+            <tr>
+                <td th:text="#{label.tr.common.tel}" />
+                <td th:text="*{customerTel}" />
+            </tr>
+            <tr>
+                <td th:text="#{label.tr.common.zip}" />
+                <td th:text="*{customerPost}" />
+            </tr>
+            <tr>
+                <td th:text="#{label.tr.common.address}" />
+                <td th:text="*{customerAdd}" />
+            </tr>
+            <tr>
+                <td th:text="#{label.tr.common.password}" />
+                <td>********</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <input type="hidden" name="customerKana" th:field="*{customerKana}" />
+        <input type="hidden" name="customerName" th:field="*{customerName}" />
+        <input type="hidden" name="customerBirthYear" th:field="*{customerBirthYear}" />
+        <input type="hidden" name="customerBirthMonth" th:field="*{customerBirthMonth}" />
+        <input type="hidden" name="customerBirthDay" th:field="*{customerBirthDay}" />
+        <input type="hidden" name="customerJob" th:field="*{customerJob}" />
+        <input type="hidden" name="customerMail" th:field="*{customerMail}" />
+        <input type="hidden" name="customerTel" th:field="*{customerTel}" />
+        <input type="hidden" name="customerPost" th:field="*{customerPost}" />
+        <input type="hidden" name="customerAdd" th:field="*{customerAdd}" />
+        <input type="hidden" name="customerPass" th:field="*{customerPass}" />
+        <input type="hidden" name="customerPassConfirm" th:field="*{customerPassConfirm}" />
+        
+        <button class="btn btn-default" name="redo" th:text="#{label.tr.common.goBackMessage}" />
+        <button class="btn btn-default" th:text="#{label.tr.common.register}" />
+    </form>
+</div>
+</body>
+</html>
