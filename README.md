@@ -1,2 +1,2 @@
 # springboot-tourreservation
-spring-boot reimplementation of terasoluna-tourreservation
+terasoluna-tourreservation的springboot实现
